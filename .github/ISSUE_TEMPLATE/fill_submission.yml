@@ -1,0 +1,44 @@
+name: Fill Data Submission
+description: Submit scrubbed order-book snapshots or fill logs (paper, shadow, or real)
+title: "[FILLS] <venue> <5m/15m> — <your-handle> (n=<count>)"
+labels: ["fills"]
+body:
+  - type: dropdown
+    id: label
+    attributes:
+      label: Accounting Label
+      description: Every submission must state how fills were generated.
+      options:
+        - shadow (live L2 order-book feed, simulated fills + latency/fee model)
+        - real (actual exchange fills, account/order IDs scrubbed)
+        - paper (historical quotes, fills assumed at quoted price)
+    validations:
+      required: true
+  - type: input
+    id: venue_tf
+    attributes:
+      label: Venue & Timeframe
+      placeholder: "e.g. Polymarket US 5m / Kalshi 15m"
+    validations:
+      required: true
+  - type: input
+    id: sample_n
+    attributes:
+      label: Sample Size (n) & Window
+      placeholder: "e.g. n = 142 orders, 2026-11-15 to 2026-11-17 UTC"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Headline Numbers (include wins, losses, fees/rebates, and red results)
+      placeholder: "Entry rule, exit rule, survival rate or fill rate, avg win vs avg loss..."
+    validations:
+      required: true
+  - type: checkboxes
+    id: scrub
+    attributes:
+      label: Pre-submission Scrub Check
+      options:
+        - label: "I ran `bash scripts/scrub_check.sh` locally and removed all keys, emails, wallet addresses, and order/account IDs."
+          required: true

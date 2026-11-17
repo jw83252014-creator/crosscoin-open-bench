@@ -1,0 +1,25 @@
+name: L2 Fill-Decay Checker Results
+description: Share output from scripts/l2_fill_decay_verifier.py on your own recorded L2 snapshots
+title: "[L2-DECAY] <venue> <5m/15m> survival @ 0/150/300/900ms (n=<count>)"
+labels: ["l2-decay"]
+body:
+  - type: input
+    id: setup
+    attributes:
+      label: Venue, Market & Capture Location
+      placeholder: "e.g. Kalshi KXBTC15M, US-East VPS WebSocket, n = 310 intended buys"
+    validations:
+      required: true
+  - type: textarea
+    id: verifier_output
+    attributes:
+      label: Verifier Table Output
+      description: Paste the output of `python3 scripts/l2_fill_decay_verifier.py --book <your_book.jsonl> --orders <your_orders.csv>`
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes on Adverse Selection (optional)
+      placeholder: "Did vanished orders settle differently from surviving orders?"

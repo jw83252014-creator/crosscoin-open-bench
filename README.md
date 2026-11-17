@@ -4,6 +4,26 @@ A public build of short-horizon crypto prediction-market research on Kalshi and 
 
 > **Not trading advice.** Everything here is research on historical or recorded data. Results are **paper** or **shadow** (simulated fills against recorded quotes or order books). None of it is live-money P&L, and past results do not predict future results. Do not copy a rule from here into a live account.
 
+## 60-Second Quickstart (Test Your Own L2 Fill Decay)
+
+Zero dependencies (Python 3.9+ standard library only). Test whether your intended limit orders still survive on the order book at `+0 / +150 / +300 / +900 ms`:
+
+```bash
+git clone https://github.com/jw83252014-creator/crosscoin-open-bench.git
+cd crosscoin-open-bench
+python3 scripts/l2_fill_decay_verifier.py --book examples/example_book.jsonl --orders examples/example_orders.csv
+```
+
+Expected output on the synthetic `examples/` fixture:
+```text
+latency_ms  n_scored  survived  gone  no_data  survival_rate
+         0         3         3     0        1         100.0%
+       150         3         2     1        1          66.7%
+       300         3         1     2        1          33.3%
+       900         4         0     4        0           0.0%
+```
+Feed `--book` your own recorded L2 top-of-book JSONL/CSV and open an issue with the **L2 Fill-Decay Checker Results** template (see `CONTRIBUTING.md` for exact 1-line JSONL schema).
+
 ## Labels used everywhere
 
 - **Paper**: a rule scored on historical quotes, fills assumed at the quoted price.
@@ -42,6 +62,16 @@ Files: `REDO-FINDINGS.md` (independent cross-check by a second agent), `jeff_tra
 | Cross-venue dutch-book detector | 2,324 found, 1,514 survived a 135 ms check, +$555.98 | **shadow, simulated profit, not money** |
 
 Sample counts differ between agents (6,574 rounds per coin vs 6,419 complete triplets, n = 5,473 vs 5,353 for the 87.2% figure). Both are counted on different windows and are reconciled in the study notes.
+
+### 3. 15m Overextension Fade — Paper vs Live-L2 Passive Maker (`studies/passive-maker-fade-15m/`), paper and shadow
+*Question: how much of a 96% paper 15m fade survives de-duplication, printed-tape depth checks, and strict live-L2 passive maker trade-throughs?*
+
+| Headline | Value | Label |
+|---|---|---|
+| Consolidated 15m fade (`FADE15U`), de-duplicated unique signals | 268W–11L (96.0%), `n = 279`, +$8,397.31 at 5% compounding vs +$1,167 flat $25 | **paper**, fees netted |
+| Single-probe replay against printed Kalshi trade tape | +$18.92 (`195.52` contracts printed <=21c) vs +$126.19 paper (`476.19` contracts) | **shadow**, `n = 1` depth illustration |
+| Passive maker resting `15-27c` -> `+16c` maker exit (`+0.25c/sh` rebate), ETH+SOL 15m | 27W–10L (73.0%), `n = 37` settled, +$34.46 at flat $5 (+$146.67 on $400 compounding) | **shadow**, live WS L2, **small single-day sample** |
+| Momentum sharp-copy control during same `CALM_RANGE` window | 3W–31L, `n = 34`, -$13.65 | **shadow** |
 
 ## How to reproduce
 

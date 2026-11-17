@@ -1,0 +1,7 @@
+{"_note": "SYNTHETIC EXAMPLE DATA, not market data", "timestamp_ms": 1000, "best_bid": 49, "best_ask": 51, "ask_size": 100, "bid_size": 80}
+{"timestamp_ms": 1150, "best_bid": 49, "best_ask": 51, "ask_size": 40, "bid_size": 80}
+{"timestamp_ms": 1300, "best_bid": 50, "best_ask": 53, "ask_size": 60, "bid_size": 70}
+{"timestamp_ms": 1900, "best_bid": 52, "best_ask": 55, "ask_size": 90, "bid_size": 50}
+{"timestamp_ms": 5000, "best_bid": 60, "best_ask": 62, "ask_size": 30, "bid_size": 30}
+{"timestamp_ms": 5300, "best_bid": 60, "best_ask": 61, "ask_size": 30, "bid_size": 30}
+{"timestamp_ms": 5900, "best_bid": 58, "best_ask": 60, "ask_size": 30, "bid_size": 30}

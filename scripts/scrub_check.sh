@@ -11,7 +11,7 @@ while IFS= read -r f; do hit "forbidden file" "$f"; done < <(find . -path ./.git
 
 # 2. content patterns (extended regex, case-insensitive). Skips .git and this script.
 scan() { # label regex
-  out=$(grep -rInEi --exclude-dir=.git --exclude="$(basename "$SELF")" --exclude=.gitignore -e "$2" . 2>/dev/null)
+  out=$(grep -rInEi --exclude-dir=.git --exclude="$(basename "$SELF")" --exclude=.gitignore --exclude=.scrub_local_terms -e "$2" . 2>/dev/null)
   [ -n "$out" ] && { echo "$out" | while IFS= read -r l; do hit "$1" "$l"; done; fail=1; }
 }
 scan "private key"      '-----BEGIN [A-Z ]*PRIVATE KEY'

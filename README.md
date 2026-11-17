@@ -25,7 +25,7 @@ A public build of short-horizon crypto prediction-market research on Kalshi and 
 | Best of 368 variants tried | 31 trades, 67.7% won, +$74.50 | paper, picked after the fact, **not proven** |
 | Reverse corner (buy BTC at 80-90c in minutes 1-4 after ETH or SOL leads) | +1.96c per contract, n = 664 | paper, a lead for a forward test, not an edge |
 
-Files: `article-v2.md` (the write-up, a draft), `REDO-FINDINGS.md` (independent cross-check by a second agent), `jeff_trade.py` and `jeff_output.txt` (the exact trade rule and its output).
+Files: `REDO-FINDINGS.md` (independent cross-check by a second agent), `jeff_trade.py` and `jeff_output.txt` (the exact trade rule and its output).
 
 ### 2. Probability Bench (`studies/probability-bench/`), Kalshi 15m and Polymarket 5m, paper and shadow
 *Question: can empirical probability tables replace hand-written if/then rules, once real asks, fees and latency are included?*
@@ -56,6 +56,17 @@ Sample counts differ between agents (6,574 rounds per coin vs 6,419 complete tri
    ```
    Compare with `studies/crosscoin-canary/jeff_output.txt`. Your window may be longer, so counts can differ; the rule and fee model are the same.
 4. The probability-bench study uses recorded order-book data that is **not published** here. Its numbers are documented but not yet reproducible from this repo.
+
+## Fill-survival check (`scripts/l2_fill_decay_verifier.py`)
+
+Feed it your own recorded top-of-book snapshots and the orders you meant to send. For each latency (0, 150, 300, 900 ms by default) it reports the share of orders whose limit price and size were still available at send time plus latency. It does not model queue position, partial fills or fees, and it contains no results of its own. The files in `examples/` are **synthetic** test data.
+
+```bash
+python3 scripts/l2_fill_decay_verifier.py --book examples/example_book.jsonl --orders examples/example_orders.csv
+python3 -m unittest discover -s tests
+```
+
+`scripts/yozapata_drift_breaker.py` is an **illustration** of a paper-to-live drift rule @yozapata described on X (demote back to paper if R per trade drifts more than 0.3R from paper). It is not tuned or tested on our data.
 
 ## Before you commit anything
 

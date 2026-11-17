@@ -8,3 +8,5 @@
 data/raw/
 data/candles/
 __pycache__/
+!examples/*.jsonl
+scripts/.scrub_local_terms

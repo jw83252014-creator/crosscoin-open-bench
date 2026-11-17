@@ -1,0 +1,10 @@
+# never commit raw venue data, keys, env files or local artifacts
+.env
+.env.*
+*.pem
+*.key
+*.pkl
+*.jsonl
+data/raw/
+data/candles/
+__pycache__/

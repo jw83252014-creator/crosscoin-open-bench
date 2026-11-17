@@ -1,0 +1,15 @@
+Data and write-up license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Scope: the results tables, derived statistics, charts and write-ups that this
+project produced itself (everything under studies/ and results/ except code).
+Code is covered by the MIT License in LICENSE.
+
+NOT covered: raw market data from Kalshi, Polymarket or any other venue. That
+data belongs to its owners and is subject to their terms. This repository does
+not redistribute it. See data/README.md.
+
+You are free to share and adapt the covered material for any purpose, even
+commercially, as long as you give appropriate credit, link to the license, and
+indicate if changes were made.
+
+Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode

@@ -115,3 +115,16 @@ It fails on keys, tokens, emails, account IDs, environment files and a few banne
 ## Contribute
 
 Open an issue or PR with your own study or fills (timestamp, venue, market, side, limit price, fill price, size, and the price 10 and 60 seconds later). Label it paper, shadow or real, and include n. We won't publish anyone's fills without asking first.
+
+
+### 4. Three-Brain Audit: `ER48` Regime Router & Brownian Physics `Phi(z_rem)` Peak-Lock (`studies/three-brain-er48-phi-zrem-2026-11-19/`), 15m BTC, paper + live-L2 shadow
+*Question: Can a single-parameter regime prior (`ER48`) + zero-parameter Brownian close-to-strike exit beat live market odds and static `69¢` caps?*
+
+| Headline | Value | Label |
+|---|---|---|
+| Pre-Round passive maker bids (adverse selection) | `38.8%` filled WR (`-10.20¢/sh`) vs `74.1%` runaway WR (`n = 166`) — **KILLED** | paper (Kalshi 15m replay) |
+| Static unfiltered `TP69` (`69¢` maker cap) | `212W–85L` (`71.4%`), **`-6.06¢/sh`**, `2/7` days green (`n = 297`) | paper (Kalshi 15m replay) |
+| Astra 1-Param `ER48` Market-Prior Residual Brier | **`+0.00111`** Brier beat OOS (`0.24310` vs `0.24422`, `n = 341` fills) | paper (Kalshi 15m replay) |
+| 3-Shape Router (`ROUTER_V1`: `0.15 <= ER48 <= 0.35`, Dual-Trend + Big-3 -> Hold + `Phi(z_rem)`, sit out Chop `<0.15`) | `32W–10L` (`76.2%`), **`+19.00¢/sh`**, `MaxDD 108¢`, `6/6` active days green (`n = 42`) | paper (Kalshi 15m replay; small `n`, shadow-testing on Poly US) |
+| Carbon Brownian Physics `Phi(z_rem)` Peak-Lock | **`+3.86¢/sh`** vs Hold-to-Bell (`n = 257` triggers in `n = 633` windows, 0 fitted weights) | paper (Kalshi 15m replay) |
+| Live-L2 Polymarket US 10-arm shadow racer (`poly_3brain_shadow_racer.py`) | Unfiltered `TP69` `14W–3L (+14¢/1sh)`; trend-gated `x_t > 0` dodged all 3 chop losses (`4W–1L`, small `n`) | shadow (live Poly US L2) |

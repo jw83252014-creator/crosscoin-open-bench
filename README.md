@@ -128,3 +128,16 @@ Open an issue or PR with your own study or fills (timestamp, venue, market, side
 | 3-Shape Router (`ROUTER_V1`: `0.15 <= ER48 <= 0.35`, Dual-Trend + Big-3 -> Hold + `Phi(z_rem)`, sit out Chop `<0.15`) | `32W–10L` (`76.2%`), **`+19.00¢/sh`**, `MaxDD 108¢`, `6/6` active days green (`n = 42`) | paper (Kalshi 15m replay; small `n`, shadow-testing on Poly US) |
 | Carbon Brownian Physics `Phi(z_rem)` Peak-Lock | **`+3.86¢/sh`** vs Hold-to-Bell (`n = 257` triggers in `n = 633` windows, 0 fitted weights) | paper (Kalshi 15m replay) |
 | Live-L2 Polymarket US 10-arm shadow racer (`poly_3brain_shadow_racer.py`) | Unfiltered `TP69` `14W–3L (+14¢/1sh)`; trend-gated `x_t > 0` dodged all 3 chop losses (`4W–1L`, small `n`) | shadow (live Poly US L2) |
+
+### 5. Slug-Rollover Bug Catch + Clean 7-Hour 5m Shadow Audit (`studies/tanto-5m-shadow-audit-2026-11-24/`), 5m Crypto, shadow
+*Question: What happens after fixing a silent slug-rollover phantom-win bug and enforcing `+1¢` trade-through queue clearance on 5m passive maker scalping?*
+
+| Headline | Value | Label |
+|---|---|---|
+| Big 3 (`BTC+ETH+SOL`, `n = 156` in `7h`) `+14¢` TP | **`114W–42L` (`73.1%`)**, `+339.0¢` (`+$104.99` on `$10` clips) | shadow (`+1¢` queue-cleared) |
+| Big 3 (`BTC+ETH+SOL`, `n = 156` in `7h`) `+20¢` TP | **`102W–54L` (`65.4%`)**, `+433.0¢` (`+$135.02` on `$10` clips) | shadow (`+1¢` queue-cleared) |
+| Non-Big-3 control (`XRP 5m`, `n = 45`) | `25W–20L` (`-225.0¢` TP14) / `22W–23L` (`-228.0¢` TP20) | shadow (**red result**) |
+| 15m Multi-Coin Scalpers control (`MC15M`, same `7h`) | `31W–36L` (`46.3%`), **`-410.0¢`** (`SOL 15m` `-264¢`) | shadow (**red result**) |
+| Session split (`BTC+ETH+SOL`, `1 AM ET` Asia vs `2 AM+ ET` London) | `1 AM ET`: `-267¢` / `-250¢`; `2 AM–7 AM ET`: `+485¢` / `+720¢` | shadow (single night, small `n`) |
+
+Open reference tools added in `tools/sensor-bus-v3/`: `$0/mo` `HYG/IEF` credit-spread crash sensor (`credit_spread_guard.py`) and strict `slug_rollover_guard.py` (with unit tests in `tests/test_sensor_bus_v3.py`).

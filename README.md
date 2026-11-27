@@ -141,3 +141,22 @@ Open an issue or PR with your own study or fills (timestamp, venue, market, side
 | Session split (`BTC+ETH+SOL`, `1 AM ET` Asia vs `2 AM+ ET` London) | `1 AM ET`: `-267¢` / `-250¢`; `2 AM–7 AM ET`: `+485¢` / `+720¢` | shadow (single night, small `n`) |
 
 Open reference tools added in `tools/sensor-bus-v3/`: `$0/mo` `HYG/IEF` credit-spread crash sensor (`credit_spread_guard.py`) and strict `slug_rollover_guard.py` (with unit tests in `tests/test_sensor_bus_v3.py`).
+
+### 6. Two-Speed Quant Brain: `0.066 ms` LightGBM Abstain-Gate, `JEV v4` Episodic Memory & Stress Tests (`studies/two-speed-blackwell-audit-2026-11-26/`), 15m / 1H Crypto, paper + shadow
+*Question: Can a strictly causal 145-tree LightGBM abstain-gate running locally in pure Python (`<0.1 ms`) lift out-of-sample Streak-4 Fade accuracy, and which new strategies survive brutal ask-cross and Leg-2 stress?*
+
+| Headline | Value | Label |
+|---|---|---|
+| `v1` LightGBM Abstain-Gate (`23,546` causal ticks, `4,325` strict OOS rows, A100-80GB) | OOS Brier `0.16894` (4-model ensemble `0.16706`) vs Physics `0.19775` and Kalshi Mid `0.16544` (**honest: hasn't beaten Mid yet — v2 adds Volume Profile + diurnal features**) | paper (strict chronological OOS) |
+| **Streak-4 Open Fade OOS Lift (`v1` gate `p >= 52%`)** | **`60.0%` (`n = 30`) -> `73.3%` (`n = 15`, `+13.3%` WR lift)** | paper (small OOS `n = 15`) |
+| Pure-Python CPU Reflex Latency (`tools/two-speed-quant-brain/abstain_gate_inference.py`) | **`0.066 ms` p50** (`0.139 ms` p99), zero dependencies | reproducible locally |
+| `PHOENIX_FLIP_DIP` (`<=20c -> >=80/85c -> <=60/55c`, `2,925` rounds) | CLASSIC (`n = 67`): **`+4.44c/sh`** | DEEPDIP (`n = 37`): **`+6.99c/sh`** even crossing full Ask + `1.5c` taker fee | paper (single-venue) |
+| Cross-Venue Stress Test (`Polymarket/Kalshi x Gemini`, 10% Leg-2 miss + 50% `<=5 bps` pin flip) | `MIDDLE_1H_POLY_GEMINI_MAKER` survives green; **`KALSHI x GEMINI 15M TAKER` fails stress** | shadow (**red result included**) |
+| `JEV v4` "Lucy's Book" Persistent Episodic Memory (`tools/two-speed-quant-brain/jev_v4_lucys_book.py`) | SQLite Top-K similarity recall + Brier grading + pluggable `Qwen/Qwen3-32B` / `Qwen/Qwen3.8-27B` LoRA backend | reproducible locally |
+
+**Try the Two-Speed Quant Brain locally in 10 seconds (zero external dependencies):**
+```bash
+python3 tools/two-speed-quant-brain/abstain_gate_inference.py
+python3 tools/two-speed-quant-brain/jev_v4_lucys_book.py --self-test
+python3 tools/two-speed-quant-brain/strategy_blueprints.py
+```

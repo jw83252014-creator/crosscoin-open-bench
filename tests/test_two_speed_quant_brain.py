@@ -18,10 +18,11 @@ class TestTwoSpeedQuantBrain(unittest.TestCase):
     def test_abstain_gate_loads_and_runs_fast(self):
         res = gate.run_synthetic_benchmark(50)
         self.assertTrue(res["ok"])
-        self.assertEqual(res["trees"], 145)
+        self.assertEqual(res["trees"], 164)
         self.assertLess(res["p50_ms"], 10.0)
         sc = res["sample_streak4_score"]
         self.assertIn("pYesCal", sc)
+        self.assertIn("pYesBlend", sc)
         self.assertIsNotNone(sc["streak4Gate"])
         self.assertEqual(sc["streak4Gate"]["fadeSide"], "NO")
 

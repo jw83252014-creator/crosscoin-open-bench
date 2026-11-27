@@ -147,9 +147,9 @@ Open reference tools added in `tools/sensor-bus-v3/`: `$0/mo` `HYG/IEF` credit-s
 
 | Headline | Value | Label |
 |---|---|---|
-| `v1` LightGBM Abstain-Gate (`23,546` causal ticks, `4,325` strict OOS rows, A100-80GB) | OOS Brier `0.16894` (4-model ensemble `0.16706`) vs Physics `0.19775` and Kalshi Mid `0.16544` (**honest: hasn't beaten Mid yet — v2 adds Volume Profile + diurnal features**) | paper (strict chronological OOS) |
-| **Streak-4 Open Fade OOS Lift (`v1` gate `p >= 52%`)** | **`60.0%` (`n = 30`) -> `73.3%` (`n = 15`, `+13.3%` WR lift)** | paper (small OOS `n = 15`) |
-| Pure-Python CPU Reflex Latency (`tools/two-speed-quant-brain/abstain_gate_inference.py`) | **`0.066 ms` p50** (`0.139 ms` p99), zero dependencies | reproducible locally |
+| `v2` LightGBM Abstain-Gate (`23,546` causal ticks, `4,099` strict OOS rows, `36` features, `164` trees) | OOS Brier `0.16521` (`v2`) & **`0.16225` (`v2` + Mid Blend) vs Kalshi Mid `0.16360`** (beat `v1` `0.16894` & Physics `0.19585`) | paper (strict chronological OOS) |
+| **Streak-4 Open Fade OOS Confusion Matrix (How It Lifted WR)** | All snapshots (`n=229`): Kept `88W-21L` (**`80.7%`**) vs Rejected `51W-69L` (`42.5%`); **Strict 1-trade-per-unique-round (`n=28`):** Kept **`9W-2L` (`81.8%`)** vs Rejected **`8W-9L` (`47.1%`)** | paper (small unique `n=28`; shadow validating) |
+| Pure-Python CPU Reflex Latency (`tools/two-speed-quant-brain/abstain_gate_inference.py`) | **`0.059 ms` p50** (`0.180 ms` p99), zero dependencies | reproducible locally |
 | `PHOENIX_FLIP_DIP` (`<=20c -> >=80/85c -> <=60/55c`, `2,925` rounds) | CLASSIC (`n = 67`): **`+4.44c/sh`** | DEEPDIP (`n = 37`): **`+6.99c/sh`** even crossing full Ask + `1.5c` taker fee | paper (single-venue) |
 | Cross-Venue Stress Test (`Polymarket/Kalshi x Gemini`, 10% Leg-2 miss + 50% `<=5 bps` pin flip) | `MIDDLE_1H_POLY_GEMINI_MAKER` survives green; **`KALSHI x GEMINI 15M TAKER` fails stress** | shadow (**red result included**) |
 | `JEV v4` "Lucy's Book" Persistent Episodic Memory (`tools/two-speed-quant-brain/jev_v4_lucys_book.py`) | SQLite Top-K similarity recall + Brier grading + pluggable `Qwen/Qwen3-32B` / `Qwen/Qwen3.8-27B` LoRA backend | reproducible locally |

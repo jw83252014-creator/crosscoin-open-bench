@@ -15,7 +15,7 @@ import math
 import os
 import time
 
-DEFAULT_MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "abstain_gate_v1")
+DEFAULT_MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "abstain_gate_v2")
 COIN_ID_MAP = {"BTC": 0, "ETH": 1, "SOL": 2, "XRP": 3}
 
 
@@ -169,11 +169,12 @@ class PureLightGBMBinaryModel:
             }
 
         return {
-            "model": "abstain_gate_v1",
-            "trainedGpu": self.model_card.get("gpu", "NVIDIA A100-SXM4-80GB"),
+            "model": self.model_card.get("version", "abstain_gate_v2"),
+            "trainedGpu": self.model_card.get("gpu", "NVIDIA L4"),
             "trees": len(self.trees),
             "pYesRaw": res["p_yes_raw"],
             "pYesCal": res["p_yes_cal"],
+            "pYesBlend": round(max(0.01, min(0.99, 0.50 * p_yes + 0.50 * mid)), 5),
             "pNoCal": res["p_no_cal"],
             "marketMid": round(mid, 4),
             "edgeYesCents": edge_yes_c,

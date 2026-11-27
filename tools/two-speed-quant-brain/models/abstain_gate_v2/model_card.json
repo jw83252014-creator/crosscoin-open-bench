@@ -1,0 +1,92 @@
+{
+  "version": "abstain_gate_v2",
+  "trained_at_utc": "2026-11-27T03:07:54.379709+00:00",
+  "gpu": "NVIDIA L4",
+  "rows": {
+    "train": 15836,
+    "cal": 3611,
+    "oos_test": 4099
+  },
+  "num_features": 36,
+  "trees": 164,
+  "oos_brier": {
+    "physics_gaussian": 0.19585,
+    "v1_lgbm_ref": 0.16894,
+    "v2_lgbm": 0.16521,
+    "v2_mid_blend": 0.16225,
+    "kalshi_market_mid": 0.1636,
+    "beat_v1": true,
+    "beat_kalshi_mid_blend": true
+  },
+  "streak4_oos": {
+    "raw_wr_pct": 60.7,
+    "raw_n": 229,
+    "gated52_wr_pct": 80.73,
+    "gated52_n": 109,
+    "diurnal_gated_wr_pct": 84.21,
+    "diurnal_n": 76
+  },
+  "top_15_features": [
+    [
+      "prior_ret_bps",
+      373
+    ],
+    [
+      "hour_utc",
+      262
+    ],
+    [
+      "bid",
+      238
+    ],
+    [
+      "spot_mom_30s_bps",
+      189
+    ],
+    [
+      "sol_dist_bps",
+      174
+    ],
+    [
+      "dow_utc",
+      173
+    ],
+    [
+      "ask",
+      158
+    ],
+    [
+      "mid",
+      152
+    ],
+    [
+      "btc_dist_bps",
+      138
+    ],
+    [
+      "round_pos_in_range",
+      124
+    ],
+    [
+      "dist_bps",
+      122
+    ],
+    [
+      "t_rem_sec",
+      119
+    ],
+    [
+      "round_range_bps",
+      112
+    ],
+    [
+      "eth_dist_bps",
+      103
+    ],
+    [
+      "dist_to_poc_bps",
+      94
+    ]
+  ],
+  "elapsed_sec": 1.65
+}

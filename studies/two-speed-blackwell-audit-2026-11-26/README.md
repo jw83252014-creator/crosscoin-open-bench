@@ -37,8 +37,24 @@ Shadow arb books regularly display deceptive `100%` win rates (`ARB_15M_POLY_GEM
 - **SURVIVES STRESS:** `MIDDLE_1H_POLY_GEMINI_MAKER` (`52W–0L`, 6 double-wins in shadow) and `ARB_15M_POLY_GEMINI_TAKER`.
 - **FAILS STRESS (RED RESULT):** `KALSHI×GEMINI 15M TAKER` (`1.5%` Kalshi taker fee + thin depth erases the edge).
 
-## 4. `Qwen/Qwen3-32B` `$0/token` A100 Audit — & Why LoRA (`Qwen/Qwen3.8-27B`) Is Next
+## 4. `Qwen/Qwen3-32B` & `Qwen/Qwen3.5-9B` LoRA Audits — Why Tool-Calling RAG Beats Closed-Book Weights
 
-Running `Qwen/Qwen3-32B` (`BF16`, `26.2s` load, `$0.00/token`) across our `18,906`-trade ledger + `v1` model card delivered two concrete upgrades AND one honest catch:
-- **Verified Wins:** Flagged **diurnal (`hour_utc`) non-stationarity** in streak fades (`hour_utc` was our #2 LightGBM split!) and specified 5 concrete `v2` microstructure features (`tools/two-speed-quant-brain/strategy_blueprints.py`).
-- **Honest Catch (Red Result on Base LLM):** Base `Qwen3-32B` conflated our cross-venue Leg-2 stress template onto single-venue `PHOENIX_FLIP_DIP` in Pass 3. That grounding catch directly motivates our next sprint: **fine-tuning a `Qwen/Qwen3.8-27B` LoRA adapter** on calibrated post-mortems + verified ledgers so Speed 2 stays strictly grounded in real desk telemetry.
+Running `Qwen/Qwen3-32B` (`BF16`, `26.2s` load, `$0.00/token`) and `Qwen/Qwen3.5-9B` (`BF16`, `111 MB` rank-16 PEFT LoRA, loss `1.1764 -> 0.5110 -> 0.3253`) across our `18,906`-trade ledger delivered concrete microstructure upgrades AND an honest red-result lesson:
+- **Verified Wins:** Flagged **diurnal (`hour_utc`) non-stationarity** in streak fades (`hour_utc` = #2 LightGBM split), flagged the **`round_pos_in_range` 0.1/0.9 liquidity trap**, and specified the `v2` microstructure features implemented in `tools/two-speed-quant-brain/strategy_blueprints.py`.
+- **Honest Catch (Red Result on Closed-Book LLM Weights):** Base `Qwen3-32B` conflated our cross-venue Leg-2 stress template onto single-venue `PHOENIX_FLIP_DIP`, and 3-epoch LoRA on `Qwen3.5-9B` learned Keystone's exact reasoning style while still blending closed-book accounting numbers. **Takeaway:** Never store exact accounting numbers in neural weights — keep calibrated probabilities in `v2` LightGBM (`0.059 ms`), inject exact receipts via `LUCYS_BOOK.md` + deterministic tool calls, and use LoRA strictly for domain reasoning & tool-use discipline.
+
+## 5. `v2` Abstain-Gate Update (`36` Strictly Causal Features, `164` Trees — Beat Kalshi Mid OOS)
+
+Adding strictly causal developing Point-of-Control distance (`dist_to_poc_bps`), intra-round range (`round_range_bps`, `round_pos_in_range`), directional absorption efficiency (`absorption_eff`), volume void flag, Phoenix swing flag, cross-coin canary divergence, and UTC overlap liquidity hour (`liquidity_hour_flag`) over the same chronological split (`Train 15,836 | Cal 3,611 | Unseen OOS Test 4,099` across `544` unique unseen rounds):
+
+| Metric | Unseen OOS Result | Honest Note |
+|---|---:|---|
+| Physics Gaussian Baseline (OOS Brier) | `0.19585` | Raw Brownian model |
+| `v1` LightGBM (OOS Brier) | `0.16894` | Prior 27-feature model |
+| **`v2` LightGBM (`164` trees, `36` features, OOS Brier)** | **`0.16521`** | Beat `v1` by `-0.00373` |
+| Kalshi Market Mid (OOS Brier) | `0.16360` | Live market benchmark |
+| **`v2` + Market Mid 50/50 Blend (OOS Brier)** | **`0.16225`** | **Beat Kalshi Market Mid OOS by `-0.00135`** |
+| Streak>=4 OOS All Snapshots (`n=229`: `139W-90L`, `60.7%`) | Kept: **`88W-21L` (`80.7%`)** vs Rejected: **`51W-69L` (`42.5%`)** | Rejected `69/90` losing snapshots (`76.7%` of losers) |
+| **Strict 1-Trade-Per-Unique-Round Open (`n=28`: `17W-11L`, `60.7%`)** | Kept: **`9W-2L` (`81.8%`)** vs Rejected: **`8W-9L` (`47.1%`)** | Blocked `9/11` losing rounds; **small unique `n=28` — forward shadow validation required** |
+| Strict 1-Trade-Per-Round + Non-Overlap Hours (`n=8`) | **`7W-1L` (`87.5%`)** | Very small `n=8`; watch forward shadow |
+| Pure-Python CPU Latency (`abstain_gate_v2`) | **`0.059 ms` p50** (`0.180 ms` p99) | Reproducible locally via `tools/two-speed-quant-brain/` |

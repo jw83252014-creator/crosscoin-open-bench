@@ -160,3 +160,16 @@ python3 tools/two-speed-quant-brain/abstain_gate_inference.py
 python3 tools/two-speed-quant-brain/jev_v4_lucys_book.py --self-test
 python3 tools/two-speed-quant-brain/strategy_blueprints.py
 ```
+
+### 7. Digital Organism Integration — Regime-Clustered Adaptive Exits (`ADAPTIVE_CLUSTER_LOCK80_BELL`, Nov 2026), 15m Crypto, paper + live-L2 shadow
+*Question: When late `>=82¢ -> $0` binary reversals cluster in time (`~3.5×` baseline after a prior dump), does a 1-bit adaptive exit genome (`LOCK80` after a dump flag, `BELL` hold-to-`$1.00` during clean-hold regimes) beat fixed `LOCK82` caps strictly out-of-sample?*
+
+| Headline | Value | Label |
+|---|---|---|
+| Untouched 40% chronological OOS holdout (`n = 262`) — **Lag-1 Adaptive Cluster (`LOCK80` ↔ `BELL`)** | **`+2,217¢/sh`** (`+8.46¢/sh` avg) vs Fixed `LOCK82` `+1,047¢/sh` (`+4.00¢/sh` — **`2.1×`**) & Pure `BELL` `+1,857¢/sh` | paper (recorded L2 tape) |
+| Chronological Alpha Decay (`3 × 218` tertiles) | Fixed `LOCK82` decayed (`+9.28¢ -> +7.30¢ -> +4.01¢`); Adaptive Cluster strengthened (`+1.82¢ -> +1.84¢ -> +8.85¢`) | paper (recorded L2 tape) |
+| Forward Live-L2 Shadow (`n = 63` identical live windows) — **`ADAPTIVE_CLUSTER_LOCK80_BELL`** | `37W–26L` (`58.7%` WR), **`+148¢/sh`** (`+$26.07` at flat `$10` eq) | shadow (live L2, simulated fills) |
+| Same `n = 63` Live-L2 Shadow control — `CONTROL_FIXED_LOCK82` | `39W–24L` (`61.9%` WR), **`-354¢/sh`** (`-$61.59` at flat `$10` eq — **`+502¢/sh` gap**) | shadow (live L2, simulated fills) |
+| Stage-1 Causal LightGBM v2 (`140` trees, lag-1 `recent_dump_82`, trained on Colab L4) | **OOS Brier `0.20690`** vs `0.22013` market baseline (`-0.01323` edge) | paper (walk-forward OOS) |
+
+**Digital Organism & Cloud GPU Pipeline:** This benchmark now connects directly into the **Digital Organism v2 (ATP Engine)** multi-agent architecture (Apple Silicon M6 local MLX `Qwen3.5-9B` LoRA + Nous Research Hermes agents + Google Colab Pro+ NVIDIA L4 / H100 passes). Full system architecture & queued H100 passes: [`grok-go-organism/docs/atp-engine-and-crosscoin-bench.md`](https://github.com/jw83252014-creator/grok-go-organism/blob/main/docs/atp-engine-and-crosscoin-bench.md).
